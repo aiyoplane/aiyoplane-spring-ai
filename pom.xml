@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.aiyoplane</groupId>
+    <artifactId>aiyoplane-spring-ai</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>aiyoplane-spring-ai</name>
+    <description>
+        Composition Boundary Adapter for Spring AI tool calling. Wraps @Tool methods with a
+        Runtime Decision Point (ALLOW / ESCALATE / BLOCK) and binds each successful call to a
+        signed Execution Receipt (Ed25519 over RFC 8785 JCS canonical intent). Implements the
+        tool-approval primitive proposed in spring-ai#4878 and spring-ai#3813 while those
+        remain unshipped upstream.
+    </description>
+    <url>https://github.com/aiyoplane/aiyoplane-spring-ai</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-ai.version>1.0.0</spring-ai.version>
+        <spring-boot.version>3.3.4</spring-boot.version>
+        <jackson.version>2.17.2</jackson.version>
+        <snakeyaml.version>2.3</snakeyaml.version>
+        <junit.version>5.10.3</junit.version>
+    </properties>
+
+    <dependencies>
+        <!--
+          Spring AI integration is documented in the README and happens in the host app's
+          configuration (where the user wraps their own ToolCallbacks with AiyoGatedToolCallback).
+          This module itself has no compile-time dependency on org.springframework.ai.*, which
+          keeps aiyoplane-spring-ai forward-compatible as Spring AI's module layout evolves and
+          lets the host app pick its own Spring AI version (1.0.x, 1.1.x, 2.x).
+        -->
+
+        <!-- Spring Boot auto-config support: provided scope. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

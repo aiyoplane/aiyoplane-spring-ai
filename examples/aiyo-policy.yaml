@@ -1,0 +1,14 @@
+default: allow
+
+rules:
+  # Destructive book-catalog mutations require a human.
+  - id: book-mutation-escalate
+    action_type: book_mutation
+    effect: escalate
+    reason: destructive book operations require human approval
+
+  # Schema-level operations are refused outright, whatever the tool name.
+  - id: schema-drop-block
+    action_type: schema_drop
+    effect: block
+    reason: schema operations are never permitted from an agent

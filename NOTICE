@@ -1,0 +1,22 @@
+aiyoplane-spring-ai
+Copyright 2026 Aiyoplane, Inc.
+
+This product includes software developed by Aiyoplane, Inc.
+(https://aiyoplane.com).
+
+Licensed under the Apache License, Version 2.0.
+
+----------------------------------------------------------------------
+
+This package is an AEAP Composition Boundary Adapter — a thin wrapper
+that attaches the AEAP Runtime Decision Point to Spring AI's tool-calling
+surface (ToolCallback). Consequential tool executions produce
+independently verifiable Execution Receipts.
+
+Specification: https://github.com/aiyoplane/aeap
+Trust surface: https://aiyoplane.com/trust
+
+Spring, Spring AI, Spring Boot, and Spring Framework are trademarks of
+Broadcom Inc. and/or its subsidiaries. This package is an independent
+AEAP adapter and is not affiliated with or endorsed by Broadcom Inc.,
+VMware, Inc., or the Spring Projects team.
